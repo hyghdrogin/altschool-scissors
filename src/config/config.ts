@@ -10,7 +10,7 @@ const config = {
 	MONGO_URL: configuration.mongo.url,
 	JWT_KEY: process.env.JWT_KEY as string,
 	SECRET: process.env.SECRET,
-	// CLIENT_ID: process.env.CLIENT_ID as string,
+	URL: process.env.URL,
 	// CLIENT_SECRET: process.env.CLIENT_SECRET as string,
 	// CALLBACK_URL: process.env.CALLBACK_URL,
 	// SENDGRID_API_KEY: process.env.SENDGRID_API_KEY as string,

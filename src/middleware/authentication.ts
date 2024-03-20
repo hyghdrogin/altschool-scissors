@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { validateUserToken } from "../utils";
 import models from "../models";
 
-export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+export const verifyUserToken = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		if (req.headers && req.headers.authorization) {
 			const parts = req.headers.authorization.split(" ");

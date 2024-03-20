@@ -4,9 +4,9 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import rateLimit from "express-rate-limit";
 import session from "express-session";
-import config from "../config/config";
-import { requestLogger, GeneralRequest } from ".";
-import router from "../routes";
+import config from "../../config/config";
+import { requestLogger, CustomRequest } from "..";
+import router from "../../routes";
 
 const server = express();
 
@@ -24,7 +24,7 @@ server.use(requestLogger);
 
 declare global {
 	namespace Express {
-		interface Request extends GeneralRequest { }
+		interface Request extends CustomRequest { }
 	}
   }
 
@@ -49,4 +49,4 @@ server.use((req, res) => res.status(404).send({
 	message: "Invalid Route"
 }));
 
-export default server;
+export { server };

@@ -1,6 +1,6 @@
 import database from "./config/database";
 import config from "./config/config";
-import server from "./utils/server";
+import { server } from "./utils";
 
 const port = config.PORT || 3000;
 

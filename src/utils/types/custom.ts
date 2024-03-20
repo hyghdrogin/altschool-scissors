@@ -1,6 +1,6 @@
 import { IUser } from "./user";
 
-export interface GeneralRequest {
+export interface CustomRequest {
   user: IUser
   file: object
   params: object

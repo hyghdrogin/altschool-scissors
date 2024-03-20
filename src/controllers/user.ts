@@ -15,13 +15,14 @@ export const signupUser = async (req: Request, res: Response) => {
 			});
 		}
 		const { email, username, password } = value;
-		const userExist = await models.user.findOne({ email, username });
-		if(userExist) {
+		const userExist = await models.user.findOne({ $or: [{ email }, { username }] });
+		if (userExist) {
 			return res.status(409).send({
 				status: false,
-				message: "User this details already exist"
+				message: "User with these details already exists"
 			});
 		}
+
 		const hashedPassword = await hashPassword(password);
 		await models.user.create({
 			email,
