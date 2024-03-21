@@ -9,47 +9,53 @@ import { requestLogger, CustomRequest } from "..";
 import router from "../../routes";
 import path from "path";
 
-const server = express();
-
-const limiter = rateLimit({
-	windowMs: 0.5 * 60 * 1000,
-	max: 3, 
-	standardHeaders: true,
-	legacyHeaders: false,
-});
-
-server.use(cors());
-server.use(bodyParser.urlencoded({ extended: true }));
-server.use(bodyParser.json());
-server.use(express.json());
-server.use(limiter);
-server.use(requestLogger);
-
-server.set("views", path.join(__dirname, "../../../public/views"));
-server.set("view engine", "ejs");
-
 declare global {
 	namespace Express {
 		interface Request extends CustomRequest { }
 	}
   }
 
-server.use(session({
-	resave: false,
-	saveUninitialized: true,
-	secret: config.SECRET as string,
-	cookie: { secure: true }
-}));
+const createServer = () => {
+	const server = express();
 
-server.use("/api", router);
+	const limiter = rateLimit({
+		windowMs: 0.5 * 60 * 1000,
+		max: 3, 
+		standardHeaders: true,
+		legacyHeaders: false,
+	});
 
-server.get("/", (req, res) => {
-	return res.status(200).render("homepage");
-});
+	server.use(cors());
+	server.use(bodyParser.urlencoded({ extended: true }));
+	server.use(bodyParser.json());
+	server.use(express.json());
+	server.use(limiter);
+	server.use(requestLogger);
 
-server.use((req, res) => res.status(404).send({
-	status: false,
-	message: "Invalid Route"
-}));
+	server.set("views", path.join(__dirname, "../../../public/views"));
+	server.set("view engine", "ejs");
 
-export { server };
+
+	server.use(session({
+		resave: false,
+		saveUninitialized: true,
+		secret: config.SECRET as string,
+		cookie: { secure: true }
+	}));
+
+	server.use("/api", router);
+
+	server.get("/", (req, res) => {
+		return res.status(200).render("homepage");
+	});
+
+	server.use((req, res) => res.status(404).send({
+		status: false,
+		message: "Invalid Route"
+	}));	
+
+	return server;
+};
+
+
+export { createServer };
