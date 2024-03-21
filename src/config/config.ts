@@ -1,20 +1,15 @@
 import dotenv from "dotenv";
-import configuration from "./index";
 
 dotenv.config(); // Calling dotenv configuration method
 
 // Initializing details of env file to config constant
 const config = {
-	PORT: configuration.server.port,
+	PORT: process.env.port,
 	APP_NAME: process.env.APP_NAME,
-	MONGO_URL: configuration.mongo.url,
+	MONGO_URL: process.env.DATABASE_URL  as string,
 	JWT_KEY: process.env.JWT_KEY as string,
 	SECRET: process.env.SECRET,
 	URL: process.env.URL,
-	// CLIENT_SECRET: process.env.CLIENT_SECRET as string,
-	// CALLBACK_URL: process.env.CALLBACK_URL,
-	// SENDGRID_API_KEY: process.env.SENDGRID_API_KEY as string,
-	// SENDGRID_EMAIL: process.env.SENDGRID_EMAIL
 };
 
 // Check if a key or value is missing in the configuration file
