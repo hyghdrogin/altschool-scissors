@@ -4,33 +4,51 @@ import models from "../models";
 
 export const verifyUserToken = async (req: Request, res: Response, next: NextFunction) => {
 	try {
+		let token;
+
 		if (req.headers && req.headers.authorization) {
 			const parts = req.headers.authorization.split(" ");
-			if (parts.length === 2) {
-				const scheme = parts[0];
-				const credentials = parts[1];
-				if (/^Bearer$/i.test(scheme)) {
-					const decodeToken = await validateUserToken(credentials);
-					const user = await models.user.findById(decodeToken!.id);
-					if (!user) return res.status(404).send({
-						status: false,
-						message: "User account not found"
-					});
-					req.user = user;
-					return next();
-				}
+			if (parts.length === 2 && /^Bearer$/i.test(parts[0])) {
+				token = parts[1];
+				console.log("header token", token);
 			} else {
 				return res.status(401).send({
 					status: false,
 					message: "Invalid authorization format"
 				});
 			}
-		} else {
-			return res.status(401).send({
+		} else if (req.headers && req.headers.cookie) {
+			const cookies = req.headers.cookie.split("; ");
+			const tokenCookie = cookies.find(cookie => cookie.startsWith("token="));
+		
+			if (tokenCookie) {
+				token = tokenCookie.split("=")[1];
+			} else {
+				return res.status(401).send({
+					status: false,
+					message: "Token cookie not found"
+				});
+			}
+		}
+
+		if (!token) {
+			return res.status(403).send({
 				status: false,
 				message: "Authorization not found"
 			});
 		}
+		const decoded = await validateUserToken(token);
+		const user = await models.user.findById(decoded!.id);
+
+		if (!user) {
+			return res.status(404).send({
+				status: false,
+				message: "User account not found"
+			});
+		}
+
+		req.user = user;
+		return next();
 	} catch (error) {
 		console.error(error as Error);
 		return res.status(500).send({

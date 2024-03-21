@@ -7,6 +7,7 @@ import session from "express-session";
 import config from "../../config/config";
 import { requestLogger, CustomRequest } from "..";
 import router from "../../routes";
+import path from "path";
 
 const server = express();
 
@@ -18,9 +19,14 @@ const limiter = rateLimit({
 });
 
 server.use(cors());
-server.use(bodyParser.json({ limit: "50mb" }));
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json());
+server.use(express.json());
 server.use(limiter);
 server.use(requestLogger);
+
+server.set("views", path.join(__dirname, "../../../public/views"));
+server.set("view engine", "ejs");
 
 declare global {
 	namespace Express {
@@ -38,10 +44,7 @@ server.use(session({
 server.use("/api", router);
 
 server.get("/", (req, res) => {
-	res.status(200).send({
-		status: true,
-		message: "Welcome to Scissors App"
-	});
+	return res.status(200).render("homepage");
 });
 
 server.use((req, res) => res.status(404).send({

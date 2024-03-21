@@ -7,6 +7,7 @@ import models from "../models";
 
 export const signupUser = async (req: Request, res: Response) => {
 	try {
+		console.log(req.body);
 		const { error, value } = validateUserSignup(req.body);
 		if(error) {
 			return res.status(400).send({
@@ -29,10 +30,7 @@ export const signupUser = async (req: Request, res: Response) => {
 			username,
 			password: hashedPassword
 		});
-		return res.status(200).send({
-			status: true,
-			message: "User account created successfully"
-		});
+		return res.status(201).render("login");
 	} catch (error) {
 		console.error(error);
 		return res.status(500).send({
@@ -52,20 +50,20 @@ export const signinUser = async (req: Request, res: Response) => {
 			});
 		}
 		const { emailUsername, password } = value;
-		const user = await models.user.findOne({
+		const userData = await models.user.findOne({
 			$or: [{
 				email: emailUsername
 			}, {
 				username: emailUsername
 			}]
 		});
-		if(!user) {
+		if(!userData) {
 			return res.status(409).send({
 				status: false,
 				message: "Invalid User details"
 			});
 		}
-		const passwordCheck = await comparePassword(password, user.password);
+		const passwordCheck = await comparePassword(password, userData.password);
 		if(!passwordCheck) {
 			return res.status(409).send({
 				status: false,
@@ -73,14 +71,13 @@ export const signinUser = async (req: Request, res: Response) => {
 			});
 		}
 		const token = await generateToken({
-			id: user._id,
-			email: user.email
+			id: userData._id,
+			email: userData.email
 		});
-		const { password: removedPassword, ...userData } = user.toObject();
-		return res.status(200).send({
-			status: true,
-			message: "User signin successful",
-			data: { token, userData}
+		res.cookie("token", token, { httpOnly: true });
+		const { password: removedPassword, ...user } = userData.toObject();
+		return res.status(200).render("dashboard", {
+			user, token
 		});
 	} catch (error) {
 		console.error(error);
