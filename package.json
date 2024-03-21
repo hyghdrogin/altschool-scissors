@@ -4,7 +4,7 @@
   "description": "The third term capstone project",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "postinstall": "tsc",
     "start": "node dist/app.js",
     "dev": "tsc-watch -b --onSuccess \"npm run start\"",
     "lint": "eslint src/**/*.ts",
