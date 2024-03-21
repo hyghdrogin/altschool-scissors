@@ -4,7 +4,7 @@ dotenv.config(); // Calling dotenv configuration method
 
 // Initializing details of env file to config constant
 const config = {
-	PORT: process.env.port,
+	PORT: process.env.PORT,
 	APP_NAME: process.env.APP_NAME,
 	MONGO_URL: process.env.DATABASE_URL  as string,
 	JWT_KEY: process.env.JWT_KEY as string,
