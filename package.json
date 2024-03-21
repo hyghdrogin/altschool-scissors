@@ -8,8 +8,7 @@
     "start": "node dist/app.js",
     "dev": "tsc-watch -b --onSuccess \"npm run start\"",
     "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint --fix src/**/*.ts",
-    "postinstall": "npm run build"
+    "lint:fix": "eslint --fix src/**/*.ts"
   },
   "repository": {
     "type": "git",
