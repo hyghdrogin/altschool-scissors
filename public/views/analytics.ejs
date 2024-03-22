@@ -870,14 +870,22 @@
   </header>
   <main>
     <section id="urlbox">
-      <p class="boxtextcenter">
       <h2>Hi, <%= shortCodeCheck.username %>, here is the analytics</h2>
-      </hr></br>
-      Inputted URL = <a href="<%= shortCodeCheck.longURL %>" target="_blank"><%= shortCodeCheck.longURL %></a></br>
-      Shortened URL = <a href="<%= shortCodeCheck.shortURL %>" target="_blank"><%= shortCodeCheck.shortURL %></a></br>
-      Click Count = <%= shortCodeCheck.clickCount %></br>
-      Clicks = <%= shortCodeCheck.clicks %></br>
-      <img src="<%= shortCodeCheck.QRCode %>" alt="QR Code">
+      <hr>
+      <p>
+        Inputted URL = <a href="<%= shortCodeCheck.longURL %>" target="_blank"><%= shortCodeCheck.longURL %></a><br>
+        Shortened URL = <a href="<%= shortCodeCheck.shortURL %>" target="_blank"><%= shortCodeCheck.shortURL %></a><br>
+        Click Count = <%= shortCodeCheck.clickCount %><br>
+        Clicks:
+      <ul>
+        <% shortCodeCheck.clicks.forEach(function(click) { %>
+        <li>
+          <b>Timestamp:</b> <%= click.timestamp %><br>
+          <b>IP Address:</b> <%= click.ipAddress %><br>
+          <b>User Agent:</b> <%= click.userAgent %><br>
+        </li>
+        <% }); %>
+      </ul>
       </p>
       <hero>
         <a href="/views/dashboard">Go back to dashboard</a>
