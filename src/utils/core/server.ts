@@ -43,7 +43,7 @@ const createServer = () => {
 		cookie: { secure: true }
 	}));
 
-	server.use("/api", router);
+	server.use("/", router);
 
 	server.get("/", (req, res) => {
 		return res.status(200).render("homepage");

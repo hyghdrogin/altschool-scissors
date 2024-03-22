@@ -6,7 +6,7 @@
   <meta name="description" content="Scissors is a tool to shorten a long link and create a short URL easy to share on sites, chat and emails. Track short URL analysis and manage your links.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:title" content="Scissors - URL Shortener">
-  <meta property="og:url" content="http://localhost:6060/">
+  <meta property="og:url" content="https://scissors-alt.onrender.com/">
   <meta property="og:type" content="website">
   <title>URL Shortener || Dashboard </title>
   <style type="text/css">
@@ -860,7 +860,7 @@
 <body>
   <header>
     <div id="logo">
-      <a href="http://localhost:6060" class="logo">
+      <a href="https://scissors-alt.onrender.com/" class="logo">
         <h1>SCISSORS </br>
           <%= user.username %> Dashboard</h1>
       </a>
@@ -869,9 +869,9 @@
   <main>
     <section id="urlbox">
       <h1>Paste the URL to be shortened</h1>
-      <form action="/api/" method="post">
+      <form action="/" method="post">
         <div id="formurl">
-          <input type="text" name="longURL" placeholder="Enter the Link here"><br>
+          <input type="url" name="longURL" placeholder="Enter the Link here"><br>
           <div id="formbutton">
             <input type="submit" value="Get Short Link">
           </div>
@@ -888,12 +888,12 @@
     <section id="emailbox">
       <h2>Here are our other services:</h2>
       <p class="boxtextcenterdesc">Custom short links, powerful dashboard, detailed analytics, QR codes and support</p>
-      <ul>
+      <ul align="center">
         <li>
-          <a href="/api/views/custom">Customize your short url</a>
+          <a href="/views/custom">Customize your short url</a>
         </li>
         <li>
-          <a href="/api/views/links">Your shortened url history</a>
+          <a href="/views/links">Your shortened url history</a>
         </li>
       </ul>
     </section>

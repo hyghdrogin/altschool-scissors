@@ -6,7 +6,7 @@
   <meta name="description" content="Scissors is a tool to shorten a long link and create a short URL easy to share on sites, chat and emails. Track short URL analysis and manage your links.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:title" content="Scissors - URL Shortener">
-  <meta property="og:url" content="http://localhost:6060/">
+  <meta property="og:url" content="https://scissors-alt.onrender.com/">
   <meta property="og:type" content="website">
   <title>URL Shortener || User Sign up </title>
   <style type="text/css">
@@ -729,7 +729,7 @@
 <body>
   <header>
     <div id="logo">
-      <a href="http://localhost:6060" class="logo">
+      <a href="https://scissors-alt.onrender.com/" class="logo">
         <h1>SCISSORS</h1>
       </a>
     </div>
@@ -737,7 +737,7 @@
   <main>
     <section id="urlbox">
       <h1>Create Your Account</h1>
-      <form action="/api/user/" method="post" enctype="application/x-www-form-urlencoded">
+      <form action="/user/" method="post" enctype="application/x-www-form-urlencoded">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br>
         <label for="email">Email:</label>
@@ -745,7 +745,7 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br>
         <button type="submit">Register</button>
-        <a href="/api/views/login">Already have an account? Login here</a>
+        <a href="/views/login">Already have an account? Login here</a>
       </form>
     </section>
   </main>

@@ -16,7 +16,7 @@ export const createURL = async (req: Request, res: Response) => {
 		}
 		const { longURL } = value;
 		const shortCode = await generateUniqueShortCode();
-		const shortURL = `${config.URL}/api/${shortCode}`;
+		const shortURL = `${config.URL}/${shortCode}`;
 		const qrCodeDataURL = await qrCode.toDataURL(shortURL);
 		const user = await models.user.findById(_id);
 		if(!user) {
@@ -64,7 +64,7 @@ export const customURL = async (req: Request, res: Response) => {
 				message: "Short code already in use, please try another"
 			});
 		}
-		const shortURL = `${config.URL}/api/${shortCode}`;
+		const shortURL = `${config.URL}/${shortCode}`;
 		const qrCodeDataURL = await qrCode.toDataURL(shortURL);
 		const user = await models.user.findById(_id);
 		if(!user) {
