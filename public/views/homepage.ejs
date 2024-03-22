@@ -567,14 +567,17 @@
     }
 
     input[type=email],
+    input[type=url],
+    input[type=password],
     input[type=text],
     textarea {
-      font: 16px lato, arial;
-      padding: 8px;
-      vertical-align: middle;
-      border-radius: 1px;
-      border: 1px solid #b6b6b6;
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1), 0 -1px 1px #fff, 0 1px 0 #fff
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
     }
 
     input[name=submit] {
@@ -933,6 +936,19 @@
       </div>
     </div>
   </main>
+  <footer>
+    <div id="footerbox">
+      <div>© 2024 Scissors || Emmanuel Omopariola - Tool to shorten a long link</div>
+      <nav id="footermenu">
+        <ul>
+          <li><a href="https://www.scissors-alt.onrender.com/">ShortURL</a></li>
+          <li><a href="https://www.scissors-alt.onrender.com/views/unshorten">Unshorten URL</a></li>
+          <li><a href="https://github.com/hyghdrogin">Github</a></li>
+          <li><a href="https://twitter.com/hyghdrogin">Twitter</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
 </body>
 
 </html>

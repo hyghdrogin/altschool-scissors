@@ -10,7 +10,6 @@ export const verifyUserToken = async (req: Request, res: Response, next: NextFun
 			const parts = req.headers.authorization.split(" ");
 			if (parts.length === 2 && /^Bearer$/i.test(parts[0])) {
 				token = parts[1];
-				console.log("header token", token);
 			} else {
 				return res.status(401).send({
 					status: false,

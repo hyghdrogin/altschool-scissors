@@ -7,7 +7,6 @@ import models from "../models";
 
 export const signupUser = async (req: Request, res: Response) => {
 	try {
-		console.log(req.body);
 		const { error, value } = validateUserSignup(req.body);
 		if(error) {
 			return res.status(400).send({

@@ -20,7 +20,7 @@ export const validateURL = (longURL: string) => {
 
 export const validateCustomUrl = ( customURL: CustomUrlInterface ) => {
 	const customURLInput = Joi.object({
-		shortCode: Joi.string().min(1).max(5).required(),
+		shortCode: Joi.string().min(1).required(),
 		longURL: Joi.string().uri().required()
 	});
 	return customURLInput.validate(customURL, options);

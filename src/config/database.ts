@@ -6,7 +6,7 @@ const connectToCluster = async () => {
 	try {
 		mongoose.set("strictQuery", false);
 		const connection = await mongoose.connect(config.MONGO_URL);
-		console.log("Connecting to Database...");
+		console.info("Connecting to Database...");
 
 		return connection;
 	} catch (error) {

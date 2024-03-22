@@ -32,16 +32,33 @@ export const createURL = async (req: Request, res: Response) => {
 			shortURL,
 			QRCode: qrCodeDataURL
 		});
-		return res.status(201).send({
-			status: true,
-			message: "Your shortened link is ready",
-			data: newURL
-		});
+		return res.status(201).render("result", { newURL });
 	} catch (error) {
 		console.error(error);
 		return res.status(500).send({
 			status: false,
 			message: "Failed to create shortened URL"
+		});
+	}
+};
+
+export const unshortenURL = async (req: Request, res: Response) => {
+	try {
+		const { error, value } = validateURL(req.body);
+		if(error) {
+			return res.status(400).send({
+				status: false,
+				message: error.message
+			});
+		}
+		const { shortURL } = value;
+		const url = await models.url.findOne({ shortURL });
+		return res.status(201).render("result", { url });
+	} catch (error) {
+		console.error(error);
+		return res.status(500).send({
+			status: false,
+			message: "Failed to find shortened URL"
 		});
 	}
 };
@@ -80,11 +97,7 @@ export const customURL = async (req: Request, res: Response) => {
 			shortURL,
 			QRCode: qrCodeDataURL
 		});
-		return res.status(201).send({
-			status: true,
-			message: "Your Customized shortened link is ready",
-			data: newURL
-		});
+		return res.status(201).render("result", { newURL });
 	} catch (error) {
 		console.error(error);
 		return res.status(500).send({
@@ -105,11 +118,9 @@ export const viewLinks = async (req: Request, res: Response) => {
 			});
 		}
 		const URLs = await models.url.find({ username: user.username });
-		const shortURLs = URLs.map(url => ({ shortURL: url.shortURL, longURL: url.longURL }));
-		return res.status(200).send({
-			status: true,
-			message: "List of all shortened URLs is generated successfully",
-			data: shortURLs
+		const shortURLs = URLs.map(url => ({ shortURL: url.shortURL, longURL: url.longURL, shortCode: url.shortCode }));
+		return res.status(200).render("links", {
+			shortURLs, user
 		});
 	} catch (error) {
 		console.error(error);
@@ -160,11 +171,7 @@ export const getURLAnalytics = async (req: Request, res: Response) => {
 				message: "Invalid shortened URL"
 			});
 		}
-		return res.status(200).send({
-			status: true,
-			message: "URL analytics fetched successfully",
-			data: shortCodeCheck
-		});
+		return res.status(200).render("analytics", { shortCodeCheck });
 	} catch (error) {
 		return res.status(500).send({
 			status: false,

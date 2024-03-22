@@ -7,10 +7,10 @@ const port = config.PORT || 3000;
 const app = createServer();
 
 app.listen(port, async () => {
-	console.log("Awaiting Database Connection...");
+	console.info("Awaiting Database Connection...");
 	await database.connectToCluster();
-	console.log("Database connected successfully!!!");
-	console.log(
+	console.info("Database connected successfully!!!");
+	console.info(
 		`${config.APP_NAME} API listening on port: ${port}`
 	);
 });
