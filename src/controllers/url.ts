@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { validateURL, validateCustomUrl, generateUniqueShortCode } from "../utils";
+import { validateURL, validateCustomUrl, generateUniqueShortCode, validateShortURL } from "../utils";
 import models from "../models";
 import config from "../config/config";
 import qrCode from "qrcode";
@@ -44,7 +44,7 @@ export const createURL = async (req: Request, res: Response) => {
 
 export const unshortenURL = async (req: Request, res: Response) => {
 	try {
-		const { error, value } = validateURL(req.body);
+		const { error, value } = validateShortURL(req.body);
 		if(error) {
 			return res.status(400).send({
 				status: false,

@@ -18,6 +18,13 @@ export const validateURL = (longURL: string) => {
 	return urlInput.validate(longURL, options);
 }; 
 
+export const validateShortURL = (shortURL: string) => {
+	const urlInput = Joi.object({
+		shortURL: Joi.string().uri().required()
+	});
+	return urlInput.validate(shortURL, options);
+}; 
+
 export const validateCustomUrl = ( customURL: CustomUrlInterface ) => {
 	const customURLInput = Joi.object({
 		shortCode: Joi.string().min(1).required(),

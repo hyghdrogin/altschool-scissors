@@ -2,7 +2,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-// import rateLimit from "express-rate-limit";
+import rateLimit from "express-rate-limit";
 import session from "express-session";
 import config from "../../config/config";
 import { requestLogger, CustomRequest } from "..";
@@ -18,18 +18,18 @@ declare global {
 const createServer = () => {
 	const server = express();
 
-	// const limiter = rateLimit({
-	// 	windowMs: 0.5 * 60 * 1000,
-	// 	max: 3, 
-	// 	standardHeaders: true,
-	// 	legacyHeaders: false,
-	// });
+	const limiter = rateLimit({
+		windowMs: 0.5 * 60 * 1000,
+		max: 3, 
+		standardHeaders: true,
+		legacyHeaders: false,
+	});
 
 	server.use(cors());
 	server.use(bodyParser.urlencoded({ extended: true }));
 	server.use(bodyParser.json());
 	server.use(express.json());
-	// server.use(limiter);
+	server.use(limiter);
 	server.use(requestLogger);
 
 	server.set("views", path.join(__dirname, "../../../public/views"));
