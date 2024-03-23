@@ -31,7 +31,7 @@ export const signupUser = async (req: Request, res: Response) => {
 		});
 		return res.status(201).render("login");
 	} catch (error) {
-		console.error(error);
+		console.error(`Error logging out: ${(error as Error).message}`);
 		return res.status(500).send({
 			status: false,
 			message: "Internal server error"
@@ -79,7 +79,20 @@ export const signinUser = async (req: Request, res: Response) => {
 			user, token
 		});
 	} catch (error) {
-		console.error(error);
+		console.error(`Error logging out: ${(error as Error).message}`);
+		return res.status(500).send({
+			status: false,
+			message: "Internal server error"
+		});
+	}
+};
+
+export const logOut = async (req: Request, res: Response) => {
+	try {
+		res.clearCookie("token");
+		return res.status(200).render("login");
+	} catch (error) {
+		console.error(`Error logging out: ${(error as Error).message}`);
 		return res.status(500).send({
 			status: false,
 			message: "Internal server error"
