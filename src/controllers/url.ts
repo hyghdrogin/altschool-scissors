@@ -16,7 +16,7 @@ export const createURL = async (req: Request, res: Response) => {
 		}
 		const { longURL } = value;
 		const shortCode = await generateUniqueShortCode();
-		const shortURL = `${config.URL}/${shortCode}`;
+		const shortURL = `${config.URL}/url/${shortCode}`;
 		const qrCodeDataURL = await qrCode.toDataURL(shortURL);
 		const user = await models.user.findById(_id);
 		if(!user) {
@@ -53,7 +53,14 @@ export const unshortenURL = async (req: Request, res: Response) => {
 		}
 		const { shortURL } = value;
 		const url = await models.url.findOne({ shortURL });
-		return res.status(201).render("result", { url });
+		console.log(url);
+		if(!url) {
+			return res.status(409).send({
+				status: false,
+				message: "Incorrect short url inputed"
+			});
+		}
+		return res.status(200).render("result", { newURL: url });
 	} catch (error) {
 		console.error(error);
 		return res.status(500).send({
@@ -81,7 +88,7 @@ export const customURL = async (req: Request, res: Response) => {
 				message: "Short code already in use, please try another"
 			});
 		}
-		const shortURL = `${config.URL}/${shortCode}`;
+		const shortURL = `${config.URL}/url/${shortCode}`;
 		const qrCodeDataURL = await qrCode.toDataURL(shortURL);
 		const user = await models.user.findById(_id);
 		if(!user) {
@@ -118,6 +125,12 @@ export const viewLinks = async (req: Request, res: Response) => {
 			});
 		}
 		const URLs = await models.url.find({ username: user.username });
+		if(!URLs) {
+			return res.status(404).send({
+				status: false,
+				message: "You have have not shorten a URL"
+			});
+		}
 		const shortURLs = URLs.map(url => ({ shortURL: url.shortURL, longURL: url.longURL, shortCode: url.shortCode }));
 		return res.status(200).render("links", {
 			shortURLs, user

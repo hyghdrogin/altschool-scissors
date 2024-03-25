@@ -7,6 +7,7 @@
     "postinstall": "tsc",
     "start": "node dist/app.js",
     "dev": "tsc-watch -b --onSuccess \"npm run start\"",
+    "test": "jest --watch",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint --fix src/**/*.ts"
   },
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/hyghdrogin/altschool-scissors#readme",
   "dependencies": {
+    "@types/jest": "^29.5.12",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
@@ -50,6 +52,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/node": "^20.11.30",
     "@types/qrcode": "^1.5.5",
+    "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "eslint": "^8.57.0",

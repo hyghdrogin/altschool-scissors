@@ -90,7 +90,7 @@ export const signinUser = async (req: Request, res: Response) => {
 export const logOut = async (req: Request, res: Response) => {
 	try {
 		res.clearCookie("token");
-		return res.status(200).render("login");
+		return res.status(440).render("login");
 	} catch (error) {
 		console.error(`Error logging out: ${(error as Error).message}`);
 		return res.status(500).send({

@@ -6,7 +6,7 @@ import viewsRouter from "./views";
 const router = serverRouter();
 
 router.use("/user", userRouter);
-router.use("/", URLRouter);
+router.use("/url", URLRouter);
 router.use("/views", viewsRouter);
 
 export default router;

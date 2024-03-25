@@ -20,7 +20,7 @@ const createServer = () => {
 
 	const limiter = rateLimit({
 		windowMs: 0.5 * 60 * 1000,
-		max: 10, 
+		max: 25, 
 		standardHeaders: true,
 		legacyHeaders: false,
 	});

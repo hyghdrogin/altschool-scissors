@@ -8,7 +8,7 @@ const router = URLRouter();
 
 router.post("/", verifyUserToken, createURL);
 router.post("/custom", verifyUserToken, customURL);
-router.post("/unshorten", verifyUserToken, unshortenURL);
+router.post("/unshorten", unshortenURL);
 router.get("/links", verifyUserToken, viewLinks);
 router.get("/:shortCode", viewLink);
 router.get("/analytics/:shortCode", verifyUserToken, getURLAnalytics);

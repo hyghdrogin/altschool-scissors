@@ -8,7 +8,7 @@
   <meta property="og:title" content="Scissors - URL Shortener">
   <meta property="og:url" content="https://scissors-alt.onrender.com/">
   <meta property="og:type" content="website">
-  <title>URL Shortener || Dashboard </title>
+  <title>URL Shortener || Result </title>
   <style type="text/css">
     @import url(https://fonts.googleapis.com/css?family=Asap:400,700|Lato:400,700,900|Source+Sans+Pro:400,700&display=swap);
 
@@ -872,7 +872,7 @@
     <section id="urlbox">
       <h1>Paste the URL to be shortened</br>
         Note: Always start your link with "https://"</h1>
-      <form action="/" method="post">
+      <form action="/url/" method="post">
         <div id="formurl">
           <input type="url" name="longURL" placeholder="Enter the Link here"><br>
           <div id="formbutton">
@@ -883,7 +883,7 @@
       <p class="boxtextcenter">
       <h2>Hi, <%= newURL.username %>, here is the result</h2>
       </hr></br>
-      Inputted URL = <a href="<%= newURL.longURL %>" target="_blank"><%= newURL.longURL %></a></br>
+      Inputed URL = <a href="<%= newURL.longURL %>" target="_blank"><%= newURL.longURL %></a></br>
       Shortened URL = <a href="<%= newURL.shortURL %>" target="_blank"><%= newURL.shortURL %></a></br>
       <img src="<%= newURL.QRCode %>" alt="QR Code">
       </p>
