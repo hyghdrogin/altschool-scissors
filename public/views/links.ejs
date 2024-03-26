@@ -885,8 +885,8 @@
           <% shortURLs.forEach(url => { %>
           <li>
             Inputed URL - <%= url.longURL %></br>
-            Shorten URL - <a href="<%= url.shortURL %>"><%= url.shortURL %></a></br>
-            <a href="/analytics/<%= url.shortCode %>" target="_blank"> View Analytics</a>
+            Shorten URL - <a href="<%= url.shortURL %>" target="_blank"><%= url.shortURL %></a></br>
+            <a href="/url/analytics/<%= url.shortCode %>"> View Analytics</a>
             <hr>
           </li>
           <% }); %>
